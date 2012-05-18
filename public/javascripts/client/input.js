@@ -50,7 +50,7 @@
 
     init: function Input(network) {
       this.network = network;
-      this.keyStatus = [];
+      this.keyStatus = {};
       this.enableKeyboard();
     },
 

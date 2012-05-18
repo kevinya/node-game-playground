@@ -25,7 +25,7 @@ if (typeof global !== "undefined") {
     
     animations: null,
     
-    movespeed: 1,
+    movespeed: 4,
     
     init: function Hero(state) {
       state = typeof state !== 'undefined' ? state : {};
@@ -54,6 +54,7 @@ if (typeof global !== "undefined") {
     },
 
     update: function update() {
+      this.setMovement(this.currentMovement);
       this.currentFrame++;
       if (this.currentFrame > animations[this.currentDirection][this.currentAnimation].frames.length) {
         if (!animations[this.currentDirection][this.currentAnimation].loop) {
@@ -95,6 +96,7 @@ if (typeof global !== "undefined") {
     setMovement: function setMovement(direction) {
       var vx = 0;
       var vy = 0;
+      
       if (direction === this.directions.LEFT
           || direction === this.directions.TOP_LEFT
           || direction === this.directions.DOWN_LEFT) {
@@ -115,10 +117,10 @@ if (typeof global !== "undefined") {
           || direction === this.directions.DOWN_RIGHT) {
         vy += this.movespeed;
       }
-
+      
       this.vx = vx;
       this.vy = vy;
-      
+
       this.setDirection(direction);
     },
     

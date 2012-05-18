@@ -28,11 +28,9 @@ nowjs.on('disconnect', function() {
 });
 
 everyone.now.sendDirection = function(direction) {
-  console.log('sendDirection : ' + direction);
   var id = this.user.clientId;
   game.updateEntity(id, {currentMovement: direction});
   var playerState = game.entities[id].getPosition();
-  playerState.direction = direction;
-  console.log(playerState);
+  playerState.currentMovement = direction;
   everyone.now.updateDirection(id, playerState);
 };
