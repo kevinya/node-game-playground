@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+	<script type="text/javascript" src="/nowjs/now.js"></script>
+	<script type="text/javascript" src="/javascripts/game.js"></script>
+	<script type="text/javascript" src="/javascripts/render.js"></script>
+	<script type="text/javascript">	
+	game = new Game();
+	$(document).ready(function() {
+		now.loadGameState = function(gameState) {
+		  game = new Game(gameState);
+		  render = new Renderer(game, document.getElementById('canvas'));
+		  game.run();
+		  render.render();
+		};
+		/*
+		render = new Renderer(game, document.getElementById('canvas'));
+		game.run();
+		render.render();
+		*/
+		
+		now.addPlayer = function(id, entity) {
+		  game.addEntity(id, entity);
+		};
+		
+		now.removePlayer = function(id) {
+		  game.removeEntity(id);
+		};
+
+		now.updatePosition = function(id, position) {
+		  game.updatePosition(id, position);
+		};
+
+		now.updateVelocity = function(id, velocity) {
+		  game.updateVelocity(id, velocity);
+		};
+		
+		$('canvas').click(function (e) {
+			var posX = $(this).offset().left;
+			var posY = $(this).offset().top;
+			var position = {x: e.pageX - posX, y: e.pageY - posY};
+			
+			now.sendPosition(position);
+		});
+		
+		keydown = 0;
+		$(window).bind('keydown', function(e) {
+			if (keydown !== e.which) {
+			  	keydown = e.which;
+				var velocity = {x: 0, y:0};
+				if (e.which === 37) {
+					  velocity.x = -1;
+				} else if (e.which === 38) {
+					  velocity.y = -1;
+				} else if (e.which === 39) {
+					  velocity.x = 1;
+				} else if (e.which === 40) {
+					  velocity.y = 1;
+				}
+				console.log(velocity);
+				now.sendVelocity(velocity);
+			}
+		});
+		
+		$(window).bind('keyup', function(e) {
+		  	if (keydown === e.which) {
+		  		keydown = 0;
+			  	console.log(e.which);
+				var velocity = {x: 0, y:0};
+				console.log(velocity);
+				now.sendVelocity(velocity);
+		  	}
+		});
+	});
+
+</script>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<script type="text/javascript" src="/nowjs/now.js"></script>
+<script type="text/javascript" src="/javascripts/shared/class.js"></script>
+<script type="text/javascript" src="/javascripts/shared/game.js"></script>
+<script type="text/javascript" src="/javascripts/shared/entity.js"></script>
+<script type="text/javascript" src="/javascripts/shared/hero.js"></script>
+<script type="text/javascript" src="/javascripts/client/render.js"></script>
+<script type="text/javascript" src="/javascripts/client/network.js"></script>
+<script type="text/javascript" src="/javascripts/client/input.js"></script>
+<script type="text/javascript">
+  window.onload = function onload() {
+    game = new Game();
+    game.run();
+    renderer = new Renderer(game, document.getElementById('canvas'));
+    network = new Network(game);
+    input = new Input(network);
+  };
+</script>
+</head>
+<body>
+	<canvas id="canvas"></canvas>
+</body>
+</html>
